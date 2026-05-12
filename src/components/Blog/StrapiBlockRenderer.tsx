@@ -66,7 +66,7 @@ export const StrapiBlockRenderer = ({ blocks }: { blocks: Block[] }) => {
               </p>
             );
           case 'heading':
-            const HeadingTag = `h${block.level || 2}` as keyof JSX.IntrinsicElements;
+            const HeadingTag = `h${block.level || 2}` as keyof React.JSX.IntrinsicElements;
             let className = "font-xl mb-6 mt-8 leading-tight font-bold text-black sm:text-2xl sm:leading-tight lg:text-xl lg:leading-tight xl:text-2xl xl:leading-tight dark:text-white";
             if (block.level === 1) className = "mb-8 text-3xl leading-tight font-bold text-black sm:text-4xl sm:leading-tight dark:text-white";
             return (
