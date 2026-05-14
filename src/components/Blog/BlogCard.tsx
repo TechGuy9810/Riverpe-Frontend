@@ -1,18 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { StrapiBlog } from "@/types/strapi";
-import { API_BASE_URL } from "@/lib/endpoints";
+import { getStrapiImageUrl } from "@/lib/imageUrl";
 
 interface BlogCardProps {
   blog: StrapiBlog;
 }
 
 export default function BlogCard({ blog }: BlogCardProps) {
-  const coverUrl = blog.coverImage?.url
-    ? blog.coverImage.url.startsWith("http")
-      ? blog.coverImage.url
-      : `${API_BASE_URL}${blog.coverImage.url}`
-    : "";
+  const coverUrl = getStrapiImageUrl(blog.coverImage?.url);
 
   const date = blog.publishedDate
     ? new Date(blog.publishedDate).toLocaleDateString("en-US", {

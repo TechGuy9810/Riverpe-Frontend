@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import type { HeroSection as HeroSectionData } from "@/types/strapi";
-import { API_BASE_URL } from "@/lib/endpoints";
+import { getStrapiImageUrl } from "@/lib/imageUrl";
 import { StrapiBlockRenderer } from "@/components/Blog/StrapiBlockRenderer";
 
 interface Props {
@@ -93,11 +93,7 @@ export default function HeroSection({ data }: Props) {
             <div className="flex-1 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
               <div className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-primary/10 dark:ring-primary/20">
                 <Image
-                  src={
-                    image[0].url.startsWith("http")
-                      ? image[0].url
-                      : `${API_BASE_URL}${image[0].url}`
-                  }
+                  src={getStrapiImageUrl(image[0].url)}
                   alt={image[0].alternativeText ?? title}
                   width={image[0].width ?? 800}
                   height={image[0].height ?? 600}
@@ -115,11 +111,7 @@ export default function HeroSection({ data }: Props) {
                 {/* Decorative glow behind image */}
                 <div className="absolute inset-0 -z-10 bg-gradient-to-tr from-primary/10 to-accent/10 blur-2xl" />
                 <Image
-                  src={
-                    image[0].url.startsWith("http")
-                      ? image[0].url
-                      : `${API_BASE_URL}${image[0].url}`
-                  }
+                  src={getStrapiImageUrl(image[0].url)}
                   alt={image[0].alternativeText ?? title}
                   width={image[0].width ?? 1200}
                   height={image[0].height ?? 700}

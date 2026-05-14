@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { IconData } from "@/types/strapi";
-import { API_BASE_URL } from "@/lib/endpoints";
+import { getStrapiImageUrl } from "@/lib/imageUrl";
 
 interface IconProps {
   data: IconData;
@@ -32,9 +32,7 @@ export default function Icon({ data, className = "", isMonochrome = false }: Ico
   if (!icon?.url) return null;
 
   const sizeClass = SIZE_CLASS[size] ?? SIZE_CLASS.md;
-  const src = icon.url.startsWith("http")
-    ? icon.url
-    : `${API_BASE_URL}${icon.url}`;
+  const src = getStrapiImageUrl(icon.url);
 
   if (isMonochrome) {
     return (

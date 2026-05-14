@@ -41,33 +41,38 @@ export default function SimpleGrid({ data }: Props) {
             {features.map((feature) => (
               <div
                 key={feature.id}
-                className="feature-card group flex flex-col gap-4 p-6"
+                className="feature-card group flex items-start gap-3.5 sm:gap-4 p-5 sm:p-6"
               >
-                {/* Icon wrapper with gradient bg */}
+                {/* Icon wrapper on the left */}
                 {feature.icon && (
-                  <div className="w-fit rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 p-3 dark:from-primary/15 dark:to-accent/15">
-                    <IconBlock data={feature.icon} />
+                  <div className="shrink-0">
+                    <IconBlock
+                      data={feature.icon}
+                      className="!bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/15 dark:to-accent/15 !rounded-xl"
+                    />
                   </div>
                 )}
 
-                {/* Title */}
-                <h3 className="text-lg font-semibold text-dark dark:text-white">
-                  {feature.title}
-                </h3>
+                {/* Content stack on the right */}
+                <div className="flex flex-1 flex-col gap-1.5 sm:gap-2 pt-0.5">
+                  <h3 className="text-base sm:text-lg font-semibold text-dark dark:text-white leading-tight">
+                    {feature.title}
+                  </h3>
 
-                {/* Description */}
-                {feature.descriptions && (
-                  <p className="flex-1 text-sm leading-relaxed text-body-color dark:text-body-color-dark">
-                    {feature.descriptions}
-                  </p>
-                )}
+                  {/* Description */}
+                  {feature.descriptions && (
+                    <p className="text-xs sm:text-sm leading-relaxed text-body-color dark:text-body-color-dark">
+                      {feature.descriptions}
+                    </p>
+                  )}
 
-                {/* Link button */}
-                {feature.link && (
-                  <div className="mt-auto pt-2">
-                    <Button data={feature.link} defaultVariant="outline" />
-                  </div>
-                )}
+                  {/* Link button */}
+                  {feature.link && (
+                    <div className="mt-1 pt-1">
+                      <Button data={feature.link} defaultVariant="outline" />
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>

@@ -50,33 +50,38 @@ export default function SplitStats({ data }: Props) {
               {features.map((feature) => (
                 <div
                   key={feature.id}
-                  className="stat-card flex flex-col gap-3 p-5"
+                  className="stat-card flex items-start gap-3 sm:gap-4 p-4 sm:p-5"
                 >
                   {/* Icon */}
                   {feature.icon && (
-                    <div className="w-fit rounded-lg bg-white/08 p-2.5">
-                      <IconBlock data={feature.icon} />
+                    <div className="shrink-0">
+                      <IconBlock
+                        data={feature.icon}
+                        className="!bg-white/08 !rounded-lg"
+                      />
                     </div>
                   )}
 
-                  {/* Title */}
-                  <h3 className="text-base font-semibold text-white">
-                    {feature.title}
-                  </h3>
+                  {/* Content stack */}
+                  <div className="flex flex-1 flex-col gap-1 pt-0.5">
+                    <h3 className="text-base sm:text-lg font-semibold text-white leading-tight">
+                      {feature.title}
+                    </h3>
 
-                  {/* Description */}
-                  {feature.descriptions && (
-                    <p className="text-sm leading-relaxed text-white/60">
-                      {feature.descriptions}
-                    </p>
-                  )}
+                    {/* Description */}
+                    {feature.descriptions && (
+                      <p className="text-xs sm:text-sm leading-relaxed text-white/60">
+                        {feature.descriptions}
+                      </p>
+                    )}
 
-                  {/* Optional link */}
-                  {feature.link && (
-                    <div className="mt-auto pt-1">
-                      <Button data={feature.link} defaultVariant="outline" />
-                    </div>
-                  )}
+                    {/* Optional link */}
+                    {feature.link && (
+                      <div className="mt-1 pt-1">
+                        <Button data={feature.link} defaultVariant="outline" />
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

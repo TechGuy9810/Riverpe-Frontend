@@ -1,7 +1,7 @@
 import type { CtaBannerSection as CtaBannerSectionData } from "@/types/strapi";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { API_BASE_URL } from "@/lib/endpoints";
+import { getStrapiImageUrl } from "@/lib/imageUrl";
 
 interface Props {
   data: CtaBannerSectionData;
@@ -55,11 +55,7 @@ export default function CtaBannerSection({ data }: Props) {
                 {card.image?.url && (
                   <div className="relative h-48 overflow-hidden">
                     <Image
-                      src={
-                        card.image.url.startsWith("http")
-                          ? card.image.url
-                          : `${API_BASE_URL}${card.image.url}`
-                      }
+                      src={getStrapiImageUrl(card.image.url)}
                       alt={card.image.alternativeText ?? card.title ?? ""}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
