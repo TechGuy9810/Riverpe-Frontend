@@ -1,30 +1,34 @@
-import AboutSectionOne from "@/components/About/AboutSectionOne";
-import AboutSectionTwo from "@/components/About/AboutSectionTwo";
-import Blog from "@/components/Blog";
-import ScrollUp from "@/components/Common/ScrollUp";
-import Features from "@/components/Features";
-import Hero from "@/components/Hero";
-import Integration from "@/components/Integration";
-import Products from "@/components/Products";
 import { Metadata } from "next";
+import { getPageBySlug } from "@/lib/services/pageService";
+import { buildMetadata } from "@/lib/seo";
+import SectionRenderer from "@/components/sections/SectionRenderer";
 
-export const metadata: Metadata = {
-  title: "RiverPe — Payment APIs Built for Modern Business",
-  description:
-    "Seamless payment processing, intelligent routing, and developer-first tools. Integrate once, scale everywhere with RiverPe.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPageBySlug("home");
+  return buildMetadata(
+    page?.seo,
+    "RiverPe — Payment Infrastructure for Forex, iGaming & Crypto Platforms",
+    "RiverPe provides payment infrastructure across Asia, Africa & Latam."
+  );
+}
 
-export default function Home() {
+export default async function HomePage() {
+  const page = await getPageBySlug("home");
+
+  if (!page) {
+    // Graceful fallback — Strapi may be unreachable during build
+    return (
+      <main className="flex min-h-screen items-center justify-center">
+        <p className="text-body-color">
+          Unable to load page content. Please check your Strapi connection.
+        </p>
+      </main>
+    );
+  }
+
   return (
-    <>
-      <ScrollUp />
-      <Hero />
-      <Features />
-      <Products />
-      <AboutSectionOne />
-      <AboutSectionTwo />
-      <Integration />
-      <Blog />
-    </>
+    <main>
+      <SectionRenderer sections={page.sections} />
+    </main>
   );
 }

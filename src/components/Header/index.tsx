@@ -7,65 +7,63 @@ import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 
 const Header = () => {
-  // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const navbarToggleHandler = () => {
-    setNavbarOpen(!navbarOpen);
-  };
+  const navbarToggleHandler = () => setNavbarOpen(!navbarOpen);
 
-  // Sticky Navbar
   const [sticky, setSticky] = useState(false);
-  const handleStickyNavbar = () => {
-    if (window.scrollY >= 80) {
-      setSticky(true);
-    } else {
-      setSticky(false);
-    }
-  };
+  const handleStickyNavbar = () => setSticky(window.scrollY >= 80);
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
     return () => window.removeEventListener("scroll", handleStickyNavbar);
   }, []);
 
-  // submenu handler
   const [openIndex, setOpenIndex] = useState(-1);
-  const handleSubmenu = (index: number) => {
-    if (openIndex === index) {
-      setOpenIndex(-1);
-    } else {
-      setOpenIndex(index);
-    }
-  };
+  const handleSubmenu = (index: number) =>
+    setOpenIndex(openIndex === index ? -1 : index);
 
   const usePathName = usePathname();
 
   return (
     <>
       <header
-        className={`header top-0 left-0 z-40 flex w-full items-center ${
+        className={`header top-0 left-0 z-40 flex w-full items-center transition-all duration-300 ${
           sticky
-            ? "dark:bg-gray-dark/90 dark:shadow-sticky-dark shadow-sticky fixed z-9999 bg-white/80 backdrop-blur-md transition"
+            ? "fixed bg-white/90 shadow-[0_1px_0_0_rgba(59,130,246,0.15)] backdrop-blur-md dark:bg-gray-900/90 dark:shadow-[0_1px_0_0_rgba(129,140,248,0.12)]"
             : "absolute bg-transparent"
         }`}
       >
         <div className="container">
           <div className="relative -mx-4 flex items-center justify-between">
-            <div className="w-60 max-w-full px-4 xl:mr-12">
+            {/* Logo */}
+            <div className="shrink-0 px-4 xl:mr-12">
               <Link
                 href="/"
                 className={`header-logo flex items-center gap-2 w-full ${
                   sticky ? "py-5 lg:py-2" : "py-8"
-                } `}
+                }`}
               >
-                <Image src="/images/riverpe.png" alt="RiverPe Logo" width={36} height={36} className="shrink-0 dark:hidden" />
-                <Image src="/images/riverpe.png" alt="RiverPe Logo" width={36} height={36} className="shrink-0 hidden dark:block" />
-                <span className="text-xl font-bold text-black dark:text-white font-[family-name:var(--font-outfit)]">
-                  RiverPe
+                <Image
+                  src="/images/riverpe.png"
+                  alt="RiverPe Logo"
+                  width={36}
+                  height={36}
+                  className="shrink-0"
+                />
+                <span className="text-xl font-bold font-[family-name:var(--font-outfit)]">
+                  {/* Gradient text on transparent header, solid when sticky */}
+                  <span className={sticky
+                    ? "text-dark dark:text-white"
+                    : "gradient-text"
+                  }>
+                    RiverPe
+                  </span>
                 </span>
               </Link>
             </div>
-            <div className="flex w-full items-center justify-between px-4">
+
+            <div className="flex flex-1 items-center justify-between px-4">
               <div>
+                {/* Mobile hamburger */}
                 <button
                   onClick={navbarToggleHandler}
                   id="navbarToggler"
@@ -73,21 +71,23 @@ const Header = () => {
                   className="ring-primary absolute top-1/2 right-4 block translate-y-[-50%] rounded-lg px-3 py-[6px] focus:ring-2 lg:hidden"
                 >
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? "top-[7px] rotate-45" : " "
+                    className={`relative my-1.5 block h-0.5 w-[30px] bg-dark transition-all duration-300 dark:bg-white ${
+                      navbarOpen ? "top-[7px] rotate-45" : ""
                     }`}
                   />
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? "opacity-0" : " "
+                    className={`relative my-1.5 block h-0.5 w-[30px] bg-dark transition-all duration-300 dark:bg-white ${
+                      navbarOpen ? "opacity-0" : ""
                     }`}
                   />
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
-                      navbarOpen ? "top-[-8px] -rotate-45" : " "
+                    className={`relative my-1.5 block h-0.5 w-[30px] bg-dark transition-all duration-300 dark:bg-white ${
+                      navbarOpen ? "top-[-8px] -rotate-45" : ""
                     }`}
                   />
                 </button>
+
+                {/* Nav */}
                 <nav
                   id="navbarCollapse"
                   className={`navbar border-body-color/50 dark:border-body-color/20 dark:bg-dark absolute right-0 z-30 w-[250px] rounded-lg border-[.5px] bg-white px-6 py-4 duration-300 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
@@ -102,19 +102,23 @@ const Header = () => {
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
-                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 font-medium ${
+                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 font-medium transition-colors duration-200 ${
                               usePathName === menuItem.path
-                                ? "text-primary dark:text-white"
-                                : "text-dark hover:text-primary dark:text-white/70 dark:hover:text-white"
+                                ? "text-primary dark:text-primary-light"
+                                : "text-dark hover:text-primary dark:text-white/70 dark:hover:text-primary-light"
                             }`}
                           >
                             {menuItem.title}
+                            {/* Active underline indicator */}
+                            {usePathName === menuItem.path && (
+                              <span className="absolute bottom-4 left-0 hidden h-[2px] w-full rounded-full bg-primary lg:block" />
+                            )}
                           </Link>
                         ) : (
                           <>
                             <p
                               onClick={() => handleSubmenu(index)}
-                              className="text-dark group-hover:text-primary flex cursor-pointer items-center justify-between py-2 text-base font-medium lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 dark:text-white/70 dark:group-hover:text-white"
+                              className="text-dark group-hover:text-primary flex cursor-pointer items-center justify-between py-2 text-base font-medium lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 dark:text-white/70 dark:group-hover:text-primary-light"
                             >
                               {menuItem.title}
                               <span className="pl-3">
@@ -137,7 +141,7 @@ const Header = () => {
                                 <Link
                                   href={submenuItem.path!}
                                   key={subIndex}
-                                  className="text-dark hover:text-primary block rounded-md py-2.5 text-sm font-medium lg:px-3 dark:text-white/70 dark:hover:text-white"
+                                  className="text-dark hover:text-primary block rounded-md py-2.5 text-sm font-medium lg:px-3 dark:text-white/70 dark:hover:text-primary-light"
                                 >
                                   {submenuItem.title}
                                 </Link>
@@ -150,22 +154,24 @@ const Header = () => {
                   </ul>
                 </nav>
               </div>
+
+              {/* Right actions */}
               <div className="flex items-center justify-end gap-3 pr-16 lg:pr-0">
                 <Link
                   href="/signin"
-                  className="text-dark hidden px-5 py-2.5 text-sm font-medium hover:text-primary md:block dark:text-white"
+                  className="text-dark hidden px-5 py-2.5 text-sm font-medium transition-colors duration-200 hover:text-primary md:block dark:text-white/80 dark:hover:text-primary-light"
                 >
                   Sign In
                 </Link>
-                <Link
-                  href="/contact"
-                  className="ease-in-up hidden rounded-lg bg-primary hover:bg-primary-dark px-6 py-2.5 text-sm font-semibold text-white shadow-btn transition duration-300 md:block"
-                >
-                  Contact Sales
-                </Link>
-                <div>
-                  <ThemeToggler />
+                <div className="hidden md:block">
+                  <Link
+                    href="/contact"
+                    className="btn btn-primary text-sm"
+                  >
+                    Contact Sales
+                  </Link>
                 </div>
+                <ThemeToggler />
               </div>
             </div>
           </div>

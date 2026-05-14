@@ -1,4 +1,4 @@
-import SingleStrapiBlog from "@/components/Blog/SingleStrapiBlog";
+import BlogCard from "@/components/Blog/BlogCard";
 import { getBlogs } from "@/lib/services/blogService";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 
@@ -37,18 +37,13 @@ const Blog = async ({ searchParams }: Props) => {
 
       <section className="pt-[120px] pb-[120px]">
         <div className="container">
-          <div className="-mx-4 flex flex-wrap justify-center">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {blogs.length > 0 ? (
               blogs.map((blog) => (
-                <div
-                  key={blog.id}
-                  className="w-full px-4 md:w-2/3 lg:w-1/2 xl:w-1/3"
-                >
-                  <SingleStrapiBlog blog={blog} />
-                </div>
+                <BlogCard key={blog.id} blog={blog} />
               ))
             ) : (
-              <div className="w-full px-4 text-center">
+              <div className="col-span-full text-center">
                 <p className="text-body-color dark:text-white">
                   No blogs found. Please check back later.
                 </p>

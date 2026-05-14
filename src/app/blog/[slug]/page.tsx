@@ -1,36 +1,32 @@
 import SharePost from "@/components/Blog/SharePost";
-
 import { StrapiBlockRenderer } from "@/components/Blog/StrapiBlockRenderer";
 import { getBlogBySlug } from "@/lib/services/blogService";
+import { buildMetadata } from "@/lib/seo";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-// Generate metadata dynamically
+type Params = Promise<{ slug: string }>;
+
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Params;
 }): Promise<Metadata> {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);
 
   if (!blog) {
-    return {
-      title: "Blog Not Found | RiverPe",
-    };
+    return { title: "Blog Not Found | RiverPe" };
   }
 
-  return {
-    title: blog.seoTitle || `${blog.title} | RiverPe Blog`,
-    description: blog.seoDescription || blog.excerpt,
-  };
+  return buildMetadata(
+    blog.seo,
+    blog.seo?.metaTitle ?? `${blog.title} | RiverPe Blog`,
+    blog.seo?.metaDescription ?? blog.excerpt
+  );
 }
 
-export default async function BlogDetailsPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function BlogDetailsPage({ params }: { params: Params }) {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);
 
@@ -39,12 +35,14 @@ export default async function BlogDetailsPage({
   }
 
   const { title, excerpt, content, publishedDate } = blog;
-  const dateObj = new Date(publishedDate);
-  const formattedDate = dateObj.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+
+  const formattedDate = publishedDate
+    ? new Date(publishedDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
 
   return (
     <>
@@ -53,12 +51,13 @@ export default async function BlogDetailsPage({
           <div className="-mx-4 flex flex-wrap justify-center">
             <div className="w-full px-4 lg:w-8/12">
               <div>
-                <h2 className="mb-8 text-3xl leading-tight font-bold text-black sm:text-4xl sm:leading-tight dark:text-white">
+                <h1 className="mb-8 text-3xl leading-tight font-bold text-black sm:text-4xl sm:leading-tight dark:text-white">
                   {title}
-                </h2>
+                </h1>
+
                 <div className="border-body-color/10 mb-10 flex flex-wrap items-center justify-between border-b pb-4 dark:border-white/10">
-                  <div className="flex flex-wrap items-center">
-                    <div className="mb-5 flex items-center">
+                  {formattedDate && (
+                    <div className="flex items-center">
                       <p className="text-body-color mr-5 flex items-center text-base font-medium">
                         <span className="mr-3">
                           <svg
@@ -73,15 +72,17 @@ export default async function BlogDetailsPage({
                         {formattedDate}
                       </p>
                     </div>
-                  </div>
+                  )}
                 </div>
+
                 <div>
-                  <p className="text-body-color mb-10 text-base leading-relaxed font-medium sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed italic">
-                    {excerpt}
-                  </p>
-                  
-                  {/* Content from Strapi */}
-                  <StrapiBlockRenderer blocks={content} />
+                  {excerpt && (
+                    <p className="text-body-color mb-10 text-base leading-relaxed font-medium sm:text-lg sm:leading-relaxed italic">
+                      {excerpt}
+                    </p>
+                  )}
+
+                  {content && <StrapiBlockRenderer blocks={content as any} />}
 
                   <div className="items-center justify-between sm:flex mt-12">
                     <div className="mb-5">
