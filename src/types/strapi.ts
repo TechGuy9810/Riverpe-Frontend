@@ -68,6 +68,40 @@ export interface FeatureCard {
   icon?: IconData;
 }
 
+// ─── Card Grid types (used inside sections.card-grid) ────────────────────────
+
+export interface StatItem {
+  id?: number;
+  value: string;
+  label: string;
+}
+
+export interface BulletItem {
+  id?: number;
+  text: string;
+}
+
+export interface CardItem {
+  id: number;
+  title: string;
+  label?: string;
+  description?: StrapiBlock[];
+  icon?: IconData;
+  stats?: StatItem[];
+  bullets?: BulletItem[];
+}
+
+export type CardGridVariant = 'partner-feature' | 'testimonial-stats';
+
+export interface CardGridSection {
+  __component: 'sections.card-grid';
+  id: number;
+  title?: string;
+  subtitle?: string;
+  variant?: CardGridVariant;
+  cards?: CardItem[];
+}
+
 // ─── CTA Card (used inside cta-banner) ───────────────────────────────────────
 
 export interface CtaCard {
@@ -135,12 +169,30 @@ export interface CtaSectionData {
   button?: ButtonData[];
 }
 
+// ─── FAQ Section ──────────────────────────────────────────────────────────────
+
+export interface FaqItem {
+  id: number;
+  question: string;
+  answer: StrapiBlock[];
+}
+
+export interface FaqSection {
+  __component: 'sections.faq-section';
+  id: number;
+  title?: string;
+  subtitle?: string;
+  faqs?: FaqItem[];
+}
+
 export type PageSection =
   | HeroSection
   | CtaBannerSection
   | FeatureGridSection
   | BlogGridSection
-  | CtaSectionData;
+  | CtaSectionData
+  | CardGridSection
+  | FaqSection;
 
 // ─── Page Collection ──────────────────────────────────────────────────────────
 

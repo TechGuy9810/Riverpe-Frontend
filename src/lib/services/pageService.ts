@@ -15,7 +15,6 @@ const PAGE_POPULATE = {
     'sections.button',
     'sections.button.icon',
     'sections.button.icon.icon',
-    'sections.cards',
     'sections.cards.image',
     'sections.cards.button',
     'sections.cards.button.icon',
@@ -28,7 +27,13 @@ const PAGE_POPULATE = {
     'sections.features.link.icon.icon',
     'sections.viewAllLink',
     'sections.viewAllLink.icon',
-    'sections.viewAllLink.icon.icon'
+    'sections.viewAllLink.icon.icon',
+    'sections.cards',
+    'sections.cards.icon',
+    'sections.cards.icon.icon',
+    'sections.cards.stats',
+    'sections.cards.bullets',
+    'sections.faqs'
   ]
 };
 

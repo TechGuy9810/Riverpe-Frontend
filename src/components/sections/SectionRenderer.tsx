@@ -4,6 +4,8 @@ import FeatureGridSection from "@/components/sections/feature-grid/FeatureGridSe
 import CtaBannerSection from "@/components/sections/cta-banner/CtaBannerSection";
 import CtaSectionComponent from "@/components/sections/cta-section/CtaSectionComponent";
 import BlogGridSection from "@/components/sections/blog-grid/BlogGridSection";
+import CardGridSection from "@/components/sections/card-grid/CardGridSection";
+import FaqSection from "@/components/sections/faq-section/FaqSection";
 
 interface Props {
   sections: PageSection[];
@@ -51,6 +53,22 @@ export default function SectionRenderer({ sections }: Props) {
             return (
               <BlogGridSection
                 key={`blog-grid-${section.id}`}
+                data={section}
+              />
+            );
+
+          case "sections.card-grid":
+            return (
+              <CardGridSection
+                key={`card-grid-${section.id}`}
+                data={section}
+              />
+            );
+
+          case "sections.faq-section":
+            return (
+              <FaqSection
+                key={`faq-section-${section.id}`}
                 data={section}
               />
             );
