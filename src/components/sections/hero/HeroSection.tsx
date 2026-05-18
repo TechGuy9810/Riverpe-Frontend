@@ -6,15 +6,26 @@ import { StrapiBlockRenderer } from "@/components/Blog/StrapiBlockRenderer";
 
 interface Props {
   data: HeroSectionData;
+  /** Optional right-column content (e.g. payment carousel). Shown only on split layouts. */
+  rightSlot?: React.ReactNode;
 }
 
-export default function HeroSection({ data }: Props) {
-  const { title, subTitle, description, image, layout = "center", button } = data;
+export default function HeroSection({ data, rightSlot }: Props) {
+  const { title, subTitle, description, image, layout = "center", variant = "long", button } = data;
 
-  const isCenter = layout === "center";
+  // We respect explicit layout, but if rightSlot is provided and layout is center, fallback to left to avoid breaking design
+  const resolvedLayout = layout === "center" && rightSlot ? "left" : layout;
+  const isCenter = resolvedLayout === "center";
+  const isRight = resolvedLayout === "right";
+  
+  const isLong = variant === "long";
 
   return (
-    <section className="hero-gradient relative overflow-hidden pt-[120px] pb-[70px] md:pt-[200px] md:pb-[120px]">
+    <section 
+      className={`hero-gradient relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-20 ${
+        isLong ? "min-h-[100svh] flex flex-col justify-center" : ""
+      }`}
+    >
       {/* Dot-grid texture */}
       <div className="dot-grid pointer-events-none absolute inset-0 -z-10 opacity-60" />
 
@@ -28,39 +39,37 @@ export default function HeroSection({ data }: Props) {
         <div className="animate-pulse-glow absolute bottom-0 left-1/2 h-[300px] w-[600px] -translate-x-1/2 rounded-full bg-accent-dark/10 blur-[120px]" />
       </div>
 
-      {/* Bottom fade into next section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/60 to-transparent dark:from-black/40" />
-
-      <div className="container relative z-10">
+      <div className="container relative z-10 w-full">
         <div
           className={`flex flex-col gap-8 ${
             isCenter
               ? "items-center text-center"
-              : "items-start text-left lg:flex-row lg:items-center lg:gap-16"
+              : `items-start text-left ${isRight ? "lg:flex-row-reverse" : "lg:flex-row"} lg:items-center lg:gap-16`
           }`}
         >
           {/* Text content */}
           <div className={isCenter ? "max-w-3xl" : "flex-1"}>
-            {/* Eyebrow badge */}
-            {subTitle && (
-              <p className="badge-primary animate-fade-in-up mb-5">
-                {/* Glowing dot */}
-                <span className="inline-block h-2 w-2 rounded-full bg-primary animate-pulse" />
-                {subTitle}
-              </p>
-            )}
-
             {/* Main title */}
             <h1
               className={`animate-fade-in-up mb-6 font-bold leading-tight tracking-tight text-dark dark:text-white ${
                 isCenter
                   ? "text-4xl sm:text-5xl lg:text-6xl"
-                  : "text-3xl sm:text-4xl lg:text-5xl"
+                  : "text-4xl sm:text-5xl lg:text-6xl"
               }`}
               style={{ animationDelay: "0.1s" }}
             >
               {title}
             </h1>
+
+            {/* Subtitle as standard text below title */}
+            {subTitle && (
+              <p 
+                className="animate-fade-in-up mb-8 text-lg md:text-xl text-body-color dark:text-body-color-dark"
+                style={{ animationDelay: "0.15s" }}
+              >
+                {subTitle}
+              </p>
+            )}
 
             {/* Rich-text description */}
             {description && Array.isArray(description) && description.length > 0 && (
@@ -88,8 +97,15 @@ export default function HeroSection({ data }: Props) {
             )}
           </div>
 
-          {/* Hero image — split layout */}
-          {image && image.length > 0 && !isCenter && (
+          {/* Right column: carousel slot takes priority over image on split layouts */}
+          {!isCenter && rightSlot && (
+            <div className="flex-1 animate-fade-in-up" style={{ animationDelay: "0.25s" }}>
+              {rightSlot}
+            </div>
+          )}
+
+          {/* Hero image — split layout (only when no rightSlot is provided) */}
+          {image && image.length > 0 && !isCenter && !rightSlot && (
             <div className="flex-1 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
               <div className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-primary/10 dark:ring-primary/20">
                 <Image

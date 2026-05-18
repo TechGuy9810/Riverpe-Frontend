@@ -1,6 +1,4 @@
-import Link from "next/link";
 import type { BlogGridSection as BlogGridSectionData } from "@/types/strapi";
-import Button from "@/components/ui/Button";
 import { getBlogs } from "@/lib/services/blogService";
 
 import BlogCard from "@/components/Blog/BlogCard";
@@ -14,7 +12,7 @@ interface Props {
  * Light: #F0F4FF bg. Dark: #0F172A bg.
  */
 export default async function BlogGridSection({ data }: Props) {
-  const { title, description, limit = 3, showFeaturedOnly = false, viewAllLink } = data;
+  const { title, description, limit = 3, showFeaturedOnly = false } = data;
 
   const blogsResponse = await getBlogs(1, limit, showFeaturedOnly);
   const blogs = blogsResponse.data ?? [];
@@ -23,7 +21,7 @@ export default async function BlogGridSection({ data }: Props) {
     <section className="section-tinted py-12 md:py-20">
       <div className="container">
         {/* Section header */}
-        <div className="mb-10 md:mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 md:mb-14 flex flex-col items-center text-center">
           <div className="max-w-xl">
             {title && (
               <h2 className="mb-3 text-3xl font-bold sm:text-4xl">
@@ -36,27 +34,15 @@ export default async function BlogGridSection({ data }: Props) {
               </p>
             )}
           </div>
-
-          {/* View all link */}
-          {viewAllLink ? (
-            <div className="shrink-0">
-              <Button data={viewAllLink} defaultVariant="outline" />
-            </div>
-          ) : (
-            <Link
-              href="/blog"
-              className="btn btn-outline shrink-0"
-            >
-              View all posts →
-            </Link>
-          )}
         </div>
 
         {/* Blog cards */}
         {blogs.length > 0 ? (
-          <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
             {blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
+              <div key={blog.id} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)] max-w-[400px]">
+                <BlogCard blog={blog} />
+              </div>
             ))}
           </div>
         ) : (

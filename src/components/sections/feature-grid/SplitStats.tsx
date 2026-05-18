@@ -25,63 +25,57 @@ export default function SplitStats({ data }: Props) {
       </div>
 
       <div className="container relative z-10">
-        <div className="grid gap-10 md:gap-12 lg:grid-cols-2 lg:gap-20 lg:items-start">
-          {/* Left — big content */}
-          <div className="flex flex-col gap-6">
-            {/* Blue vertical accent line */}
-            {title && (
-              <div className="flex gap-3 sm:gap-5">
-                <div className="mt-1.5 w-1 shrink-0 rounded-full bg-gradient-to-b from-primary via-accent to-accent-dark" />
-                <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl xl:text-5xl">
-                  {title}
-                </h2>
-              </div>
-            )}
-            {description && Array.isArray(description) && description.length > 0 && (
-              <div className="text-base leading-relaxed text-white/70">
-                <StrapiBlockRenderer blocks={description as any} />
-              </div>
-            )}
+        <div className="grid gap-10 md:gap-12 lg:grid-cols-2 lg:gap-20 lg:items-stretch">
+          {/* Left — feature-card (white background on all screens) */}
+          <div className="feature-card p-6 sm:p-8 h-full">
+            <div className="flex flex-col gap-6">
+              {title && (
+                <div className="flex gap-3 sm:gap-5">
+                  <div className="mt-1.5 w-1 shrink-0 rounded-full bg-gradient-to-b from-primary via-accent to-accent-dark" />
+                  <h2 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl xl:text-5xl">
+                    {title}
+                  </h2>
+                </div>
+              )}
+
+              {description && Array.isArray(description) && description.length > 0 && (
+                <div className="text-base leading-relaxed text-gray-700 [&_*]:text-gray-700">
+                  <StrapiBlockRenderer blocks={description as any} />
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right — stats/features grid */}
           {features && features.length > 0 && (
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-5 auto-rows-fr h-full">
               {features.map((feature) => (
-                <div
-                  key={feature.id}
-                  className="stat-card flex items-start gap-3 sm:gap-4 p-4 sm:p-5"
-                >
-                  {/* Icon */}
+                <div key={feature.id} className="stat-card flex flex-col items-start gap-4 p-6 h-full w-full">
+                  {/* Icon (top) */}
                   {feature.icon && (
-                    <div className="shrink-0">
-                      <IconBlock
-                        data={feature.icon}
-                        className="!bg-white/08 !rounded-lg"
-                      />
+                    <div className="mb-3">
+                      <IconBlock data={feature.icon} className="rounded-md" />
                     </div>
                   )}
 
-                  {/* Content stack */}
-                  <div className="flex flex-1 flex-col gap-1 pt-0.5">
-                    <h3 className="text-base sm:text-lg font-semibold text-white leading-tight">
-                      {feature.title}
-                    </h3>
+                  {/* Heading (bigger & bolder) */}
+                  <h3 className="stat-value text-2xl lg:text-3xl font-bold text-gray-900 leading-tight">
+                    {feature.title}
+                  </h3>
 
-                    {/* Description */}
-                    {feature.descriptions && (
-                      <p className="text-xs sm:text-sm leading-relaxed text-white/60">
-                        {feature.descriptions}
-                      </p>
-                    )}
+                  {/* Description */}
+                  {feature.descriptions && (
+                    <p className="stat-desc mt-2 text-sm text-gray-600">
+                      {feature.descriptions}
+                    </p>
+                  )}
 
-                    {/* Optional link */}
-                    {feature.link && (
-                      <div className="mt-1 pt-1">
-                        <Button data={feature.link} defaultVariant="outline" />
-                      </div>
-                    )}
-                  </div>
+                  {/* Optional link */}
+                  {feature.link && (
+                    <div className="mt-auto pt-1">
+                      <Button data={feature.link} defaultVariant="outline" />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

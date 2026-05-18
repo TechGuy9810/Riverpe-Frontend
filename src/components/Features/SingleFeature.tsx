@@ -5,7 +5,7 @@ const SingleFeature = ({ feature }: { feature: Feature }) => {
   return (
     <div className="w-full">
       <div
-        className="group rounded-xl border border-stroke-stroke bg-white p-8 transition-all duration-300 hover:border-primary/30 hover:shadow-card-hover dark:border-stroke-dark dark:bg-gray-dark dark:hover:border-primary/30"
+        className="group rounded-xl border border-gray-100 bg-white shadow-sm p-8 transition-all duration-300 hover:shadow-md hover:border-primary/30 dark:border-gray-800 dark:bg-gray-dark dark:hover:border-primary/30"
       >
         <div className="mb-6 flex h-[60px] w-[60px] items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
           {icon}

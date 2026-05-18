@@ -25,17 +25,6 @@ const menuData: Menu[] = [
     path: "/blog",
     newTab: false,
   },
-  {
-    id: 5,
-    title: "Docs",
-    path: "/docs",
-    newTab: false,
-  },
-  {
-    id: 6,
-    title: "Contact",
-    path: "/contact",
-    newTab: false,
-  },
+  // Docs and Contact removed from header menu per request
 ];
 export default menuData;

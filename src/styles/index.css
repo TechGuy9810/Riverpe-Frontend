@@ -28,7 +28,7 @@ layer(base);
   --color-accent-light: #A5B4FC;
   --color-yellow: #FBBF24;
   --color-bg-color-dark: #0F172A;
-  --color-navy: #0B1229;
+  --color-navy: #2563EB;
   --color-navy-surface: #111827;
 
   --color-body-color: #64748B;
@@ -389,15 +389,15 @@ layer(base);
 
 /* Light tinted — soft blue wash over white */
 .section-tinted {
-  background-color: #F0F4FF;
+  background-color: #FCFCFC;
 }
 .dark .section-tinted {
-  background-color: #0F172A;
+  background-color: #0B1120;
 }
 
 /* Dark navy — deep section for contrast rhythm */
 .section-navy {
-  background-color: #0B1229;
+  background-color: #2563EB;
 }
 .dark .section-navy {
   background-color: #060D1A;
@@ -455,53 +455,62 @@ layer(base);
 /* Feature card on tinted background */
 .feature-card {
   background: #ffffff;
-  border: 1px solid rgba(59,130,246,0.10);
-  border-left: 3px solid var(--color-primary);
   border-radius: 1rem;
-  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  border: 1px solid var(--color-gray-100);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 .feature-card:hover {
-  box-shadow: 0 8px 32px rgba(59,130,246,0.14);
+  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
-  border-left-color: var(--color-accent);
 }
 .dark .feature-card {
   background: rgba(255,255,255,0.04);
-  border-color: rgba(129,140,248,0.12);
-  border-left-color: var(--color-primary);
+  border-color: var(--color-gray-800);
 }
 .dark .feature-card:hover {
   background: rgba(59,130,246,0.08);
-  border-left-color: var(--color-accent-light);
-  box-shadow: 0 8px 32px rgba(129,140,248,0.15);
+  box-shadow: var(--shadow-md);
 }
 
-/* Stat card on navy background */
+/* Stat card — elevated white cards used in the split-stats layout */
 .stat-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top: 2px solid var(--color-primary);
+  background: var(--color-surface);
   border-radius: 1rem;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  border: 1px solid var(--color-gray-100);
+  box-shadow: var(--shadow-feature);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 .stat-card:hover {
-  background: rgba(59,130,246,0.10);
-  box-shadow: 0 6px 24px rgba(59,130,246,0.18);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
 }
 .dark .stat-card {
   background: rgba(255,255,255,0.04);
   border-color: rgba(255,255,255,0.06);
-  border-top-color: var(--color-accent);
+  box-shadow: 0 4px 20px rgba(2,6,23,0.6);
+}
+
+/* Inner typography for stat cards */
+.stat-card .stat-value {
+  line-height: 1;
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+.stat-card .stat-desc {
+  color: var(--color-gray-600);
+}
+.dark .stat-card .stat-value {
+  color: #ffffff;
+}
+.dark .stat-card .stat-desc {
+  color: rgba(255,255,255,0.85);
 }
 
 /* Dark navy section glass card */
 .navy-glass-card {
   background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-top: 2px solid transparent;
-  border-image: linear-gradient(90deg, var(--color-primary), var(--color-accent)) 1;
   border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
   transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   backdrop-filter: blur(8px);
 }
@@ -512,7 +521,7 @@ layer(base);
 }
 .dark .navy-glass-card {
   background: rgba(255,255,255,0.04);
-  border-color: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.1);
 }
 .dark .navy-glass-card:hover {
   background: rgba(129,140,248,0.12);
@@ -521,12 +530,10 @@ layer(base);
 .glass-card {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.5);
 }
 
 .dark .glass-card {
   background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(51, 65, 85, 0.5);
 }
 
 /* Code block styling for docs/integration */

@@ -70,13 +70,13 @@ export default function Icon({ data, className = "", isMonochrome = false }: Ico
  * A standalone Icon with a coloured background wrapper.
  * Use this inside feature cards, not inside buttons.
  */
-export function IconBlock({ data, className = "" }: IconProps) {
+export function IconBlock({ data, className = "", isMonochrome = false }: IconProps) {
   const { size = "md" } = data;
   const wrapperClass = WRAPPER_CLASS[size] ?? WRAPPER_CLASS.md;
 
   return (
     <div className={`${wrapperClass} ${className}`}>
-      <Icon data={data} />
+      <Icon data={data} isMonochrome={isMonochrome} />
     </div>
   );
 }

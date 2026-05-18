@@ -62,7 +62,7 @@ const Header = () => {
             </div>
 
             <div className="flex flex-1 items-center justify-between px-4">
-              <div>
+              <div className="lg:flex lg:flex-1 lg:justify-center">
                 {/* Mobile hamburger */}
                 <button
                   onClick={navbarToggleHandler}

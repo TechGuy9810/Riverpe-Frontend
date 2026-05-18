@@ -129,6 +129,7 @@ export interface HeroSection {
   description?: StrapiBlock[] | null;
   image?: StrapiMedia[];
   layout?: 'center' | 'left' | 'right';
+  variant?: 'long' | 'short';
   button?: ButtonData[];
 }
 
@@ -185,6 +186,31 @@ export interface FaqSection {
   faqs?: FaqItem[];
 }
 
+// ─── Carousel Payment Method ─────────────────────────────────────────────────
+
+export interface CarouselPaymentMethodItem {
+  id: number;
+  name: string;
+  subtitle?: string;
+  icon?: IconData;
+  tag?: string;
+}
+
+export interface CarouselCountryGroup {
+  id: number;
+  country: string;
+  badge?: string;
+  methods?: CarouselPaymentMethodItem[];
+}
+
+export interface CarouselPaymentMethodSection {
+  __component: 'sections.carousel-payment-method';
+  id: number;
+  title?: string;
+  subtitle?: string;
+  countryGroups?: CarouselCountryGroup[];
+}
+
 export type PageSection =
   | HeroSection
   | CtaBannerSection
@@ -192,7 +218,8 @@ export type PageSection =
   | BlogGridSection
   | CtaSectionData
   | CardGridSection
-  | FaqSection;
+  | FaqSection
+  | CarouselPaymentMethodSection;
 
 // ─── Page Collection ──────────────────────────────────────────────────────────
 

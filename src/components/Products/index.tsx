@@ -69,7 +69,7 @@ const Products = () => {
           {productsData.map((product) => (
             <div
               key={product.id}
-              className="group relative overflow-hidden rounded-2xl border border-stroke-stroke bg-white p-8 transition-all duration-500 hover:border-primary/30 hover:shadow-card-hover dark:border-stroke-dark dark:bg-gray-dark dark:hover:border-primary/30"
+              className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-500 hover:shadow-md hover:border-primary/30 dark:border-gray-800 dark:bg-gray-dark dark:hover:border-primary/30"
             >
               {/* Top gradient accent */}
               <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${product.accent} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}></div>

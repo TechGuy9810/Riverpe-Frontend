@@ -33,7 +33,11 @@ const PAGE_POPULATE = {
     'sections.cards.icon.icon',
     'sections.cards.stats',
     'sections.cards.bullets',
-    'sections.faqs'
+    'sections.faqs',
+    'sections.countryGroups',
+    'sections.countryGroups.methods',
+    'sections.countryGroups.methods.icon',
+    'sections.countryGroups.methods.icon.icon'
   ]
 };
 

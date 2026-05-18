@@ -39,14 +39,15 @@ export default function PartnerFeatureGrid({ data }: Props) {
             {cards.map((card) => (
               <div
                 key={card.id}
-                className="partner-feature-card group flex flex-col gap-4 rounded-2xl border border-stroke-stroke dark:border-stroke-dark bg-white dark:bg-gray-800 p-6 shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
+                className="partner-feature-card group flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-800 p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1"
               >
                 {/* Icon */}
                 {card.icon && (
                   <div className="shrink-0">
                     <IconBlock
                       data={card.icon}
-                      className="!bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/15 dark:to-accent/15 !rounded-xl !w-12 !h-12"
+                      isMonochrome={true}
+                      className="!bg-primary text-white !rounded-xl !w-12 !h-12"
                     />
                   </div>
                 )}

@@ -38,7 +38,7 @@ export default function TestimonialStatsGrid({ data }: Props) {
             {cards.map((card) => (
               <div
                 key={card.id}
-                className="testimonial-stats-card group relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-stroke-stroke dark:border-stroke-dark bg-white dark:bg-gray-800 p-8 shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
+                className="testimonial-stats-card group relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-800 p-8 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1"
               >
                 {/* Decorative accent blob */}
                 <div

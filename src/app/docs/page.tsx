@@ -55,7 +55,7 @@ const docsContent: Record<string, { title: string; content: React.ReactNode }> =
           ].map((api) => (
             <div
               key={api.name}
-              className="rounded-xl border border-stroke-stroke bg-gray-50 p-6 text-center transition-all duration-300 hover:border-primary/30 hover:shadow-card-hover dark:border-stroke-dark dark:bg-gray-dark"
+              className="rounded-xl border border-gray-100 bg-gray-50 p-6 text-center shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md dark:border-gray-800 dark:bg-gray-dark"
             >
               <div className="mb-3 text-3xl">{api.icon}</div>
               <h4 className="mb-1 font-bold text-black dark:text-white">{api.name}</h4>

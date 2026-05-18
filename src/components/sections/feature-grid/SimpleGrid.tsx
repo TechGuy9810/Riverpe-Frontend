@@ -48,7 +48,8 @@ export default function SimpleGrid({ data }: Props) {
                   <div className="shrink-0">
                     <IconBlock
                       data={feature.icon}
-                      className="!bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/15 dark:to-accent/15 !rounded-xl"
+                      isMonochrome={true}
+                      className="!bg-primary text-white !rounded-xl"
                     />
                   </div>
                 )}
